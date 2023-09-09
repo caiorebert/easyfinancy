@@ -1,6 +1,11 @@
+import 'dart:convert';
+import 'dart:ffi';
+
+import 'package:easyfinancy/app/shared/models/compra.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:easyfinancy/app/shared/sharedPrefs.dart';
 import 'home_store.dart';
 
 class HomePage extends StatefulWidget {
@@ -13,7 +18,9 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late final HomeStore store;
+  late final SharedPrefs _sharedPrefs = SharedPrefs();
   late int currentIndex = 0;
+  late List<Compra> compras;
   late final _telas = [
     HomeScreen(),
     ComprasScreen(),
@@ -29,6 +36,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     store = Modular.get<HomeStore>();
+    print(_sharedPrefs.read('compras'));
   }
 
   @override
